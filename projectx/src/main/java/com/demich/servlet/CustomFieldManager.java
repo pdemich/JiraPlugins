@@ -7,6 +7,9 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.inject.Inject;
+import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
+import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import java.io.IOException;
 
 import java.net.URI;
@@ -15,12 +18,17 @@ import com.atlassian.sal.api.user.UserKey;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
 
+@Scanned
 public class CustomFieldManager extends HttpServlet{
- 
+	
+	@ComponentImport
     private final UserManager userManager;
+	@ComponentImport
 	private final LoginUriProvider loginUriProvider;
+	@ComponentImport
 	private final TemplateRenderer renderer;
 	
+	@Inject
     public CustomFieldManager(UserManager userManager, LoginUriProvider loginUriProvider, TemplateRenderer renderer) {
     	
     	this.userManager = userManager;
