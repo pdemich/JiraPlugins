@@ -13,16 +13,19 @@ import java.net.URI;
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserKey;
 import com.atlassian.sal.api.user.UserManager;
+import com.atlassian.templaterenderer.TemplateRenderer;
 
 public class CustomFieldManager extends HttpServlet{
  
     private final UserManager userManager;
 	private final LoginUriProvider loginUriProvider;
+	private final TemplateRenderer renderer;
 	
-    public CustomFieldManager(UserManager userManager, LoginUriProvider loginUriProvider) {
+    public CustomFieldManager(UserManager userManager, LoginUriProvider loginUriProvider, TemplateRenderer renderer) {
     	
     	this.userManager = userManager;
     	this.loginUriProvider = loginUriProvider;
+    	this.renderer = renderer;
     	
 	}
     
@@ -35,6 +38,9 @@ public class CustomFieldManager extends HttpServlet{
           redirectToLogin(req, resp);
           return;
         }
+        
+        resp.setContentType("text/html;charset=utf-8");
+        renderer.render("admin.vm", resp.getWriter());
     }
 
 	private void redirectToLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
