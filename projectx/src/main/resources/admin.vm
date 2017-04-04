@@ -1,6 +1,8 @@
 <html>
   <head>
-    <title>XProduct Admin</title>
+    <title>Custom field manager</title>
+    <meta name="decorator" content="atl.admin">
+    $webResourceManager.requireResource("com.atlassian.auiplugin:ajs")
   </head>
   <body>
     <form id="admin">
