@@ -16,6 +16,7 @@
     <resource type="download" name="projectx.css" location="/css/projectx.css"/>
     <resource type="download" name="projectx.js" location="/js/projectx.js"/>
     <resource type="download" name="images/" location="/images"/>
+    
     <context>projectx</context>
   </web-resource>
   <servlet name="Custom Field Manager" i18n-name-key="custom-field-manager.name" key="custom-field-manager" class="com.demich.servlet.CustomFieldManager">
