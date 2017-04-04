@@ -1,21 +1,21 @@
 <html>
 <head>
-<title>Custom field manager</title>
+<title>$i18n.getText("projectx.custom-field-manager.label")</title>
 <meta name="decorator" content="atl.admin">
 $webResourceManager.requireResource("com.atlassian.auiplugin:ajs")
 </head>
 <body>
 	<form id="admin" class="aui" action="">
 		<div class="field-group">
-			<label for="name">Name:</label> <input type="text" id="name"
+			<label for="name">$i18n.getText("projectx.custom-field-manager.name.label"):</label> <input type="text" id="name"
 				name="name" class="text">
 		</div>
 		<div class="field-group">
-			<label for="time">Time:</label> <input type="text" id="time"
+			<label for="time">$i18n.getText("projectx.custom-field-manager.time.label"):</label> <input type="text" id="time"
 				name="time" class="text">
 		</div>
 		<div class="field-group">
-			<input type="submit" value="Save" class="button">
+			<input type="submit" value="$i18n.getText("projectx.custom-field-manager.save.label")" class="button">
 		</div>
 	</form>
 </body>
