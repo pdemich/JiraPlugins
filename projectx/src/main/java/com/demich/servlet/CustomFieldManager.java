@@ -16,6 +16,7 @@ import java.net.URI;
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserKey;
 import com.atlassian.sal.api.user.UserManager;
+import com.atlassian.sal.api.user.UserProfile;
 import com.atlassian.templaterenderer.TemplateRenderer;
 
 @Scanned
@@ -37,11 +38,13 @@ public class CustomFieldManager extends HttpServlet{
     	
 	}
     
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-    	UserKey userKey = userManager.getRemoteUser(req).getUserKey();
-        if (userKey == null || !userManager.isSystemAdmin(userKey))
+    	String username = userManager.getRemoteUsername(req);
+    	
+        if (username == null || !userManager.isSystemAdmin(username))
         {
           redirectToLogin(req, resp);
           return;
