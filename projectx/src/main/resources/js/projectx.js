@@ -13,9 +13,24 @@
             dataType: "json"
         }).done(function(config) { // when the configuration is returned...
             // ...populate the form.
+        	
             $("#name").val(config.name);
             $("#time").val(config.time);
+            AJS.$("#admin").submit(function(e) {
+                e.preventDefault();
+                updateConfig();
+            });
         });
     });
 
 })(AJS.$ || jQuery);
+
+function updateConfig() {
+	  AJS.$.ajax({
+	    url: baseUrl + "/rest/xproduct-admin/1.0/",
+	    type: "PUT",
+	    contentType: "application/json",
+	    data: '{ "name": "' + AJS.$("#name").attr("value") + '", "time": ' +  AJS.$("#time").attr("value") + ' }',
+	    processData: false
+	  });
+	}

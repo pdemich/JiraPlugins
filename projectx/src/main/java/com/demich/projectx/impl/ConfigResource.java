@@ -44,4 +44,62 @@ public class ConfigResource
         this.pluginSettingsFactory = pluginSettingsFactory;
         this.transactionTemplate = transactionTemplate;
     }
+    
+    @XmlRootElement
+    @XmlAccessorType(XmlAccessType.FIELD)
+    public static final class Config
+    {
+      @XmlElement private String name;
+      @XmlElement private int time;
+            
+      public String getName()
+      {
+        return name;
+      }
+            
+      public void setName(String name)
+      {
+        this.name = name;
+      }
+            
+      public int getTime()
+      {
+        return time;
+      }
+            
+      public void setTime(int time)
+      {
+        this.time = time;
+      }
+    }
+    
+    @SuppressWarnings("deprecation")
+	@GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response get(@Context HttpServletRequest request)
+    {
+      String username = userManager.getRemoteUsername(request);
+      if (username == null || !userManager.isSystemAdmin(username))
+      {
+        return Response.status(Status.UNAUTHORIZED).build();
+      }
+
+      return Response.ok(transactionTemplate.execute(new TransactionCallback()
+      {
+        public Object doInTransaction()
+        {
+          PluginSettings settings = pluginSettingsFactory.createGlobalSettings();
+          Config config = new Config();
+          config.setName((String) settings.get(Config.class.getName() + ".name"));
+                    
+          String time = (String) settings.get(Config.class.getName() + ".time");
+          if (time != null)
+          {
+            config.setTime(Integer.parseInt(time));
+          }
+          return config;
+        }
+      })).build();
+    }
+    
 }
