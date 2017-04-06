@@ -16,11 +16,19 @@
     <resource type="download" name="projectx.css" location="/css/projectx.css"/>
     <resource type="download" name="projectx.js" location="/js/projectx.js"/>
     <resource type="download" name="images/" location="/images"/>
-    
     <context>projectx</context>
   </web-resource>
   <servlet name="Custom Field Manager" i18n-name-key="custom-field-manager.name" key="custom-field-manager" class="com.demich.servlet.CustomFieldManager">
     <description key="custom-field-manager.description">The Custom Field Manager Plugin</description>
     <url-pattern>/customfieldmanager</url-pattern>
   </servlet>
+  <rest key="rest" path="/projectx" version="1.0">
+  	<description>Provides REST resources for the admin UI.</description>
+  </rest>
+  
+  <web-item key="jira-menu-item" name="Custom Fields Manager" section="system.admin/globalsettings" weight="10" application="jira">
+  <description>Link to Custom Fields Manager page.</description> 
+  <label key="projectx.custom-field-manager.label" /> 
+  <link linkId="custom-field-manager">/plugins/servlet/customfieldmanager</link> 
+</web-item> 
 </atlassian-plugin>
