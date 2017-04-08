@@ -5,18 +5,25 @@
 $webResourceManager.requireResource("com.demich.projectx:resources")
 </head>
 <body>
-	<form id="admin" class="aui" action="">
-		<div class="field-group">
-			<label for="name">$i18n.getText("projectx.custom-field-manager.name.label"):</label> <input type="text" id="name"
-				name="name" class="text">
-		</div>
-		<div class="field-group">
-			<label for="time">$i18n.getText("projectx.custom-field-manager.time.label"):</label> <input type="text" id="time"
-				name="time" class="text">
-		</div>
-		<div class="field-group">
-			<input type="submit" value="$i18n.getText("projectx.custom-field-manager.save.label")" class="button">
-		</div>
-	</form>
+	<h2>Yo $username</h2>
+	<p>List of custom fields currently residing on the server:</p>
+
+	
+	<table>
+    #foreach( $name in $fieldnames )
+        <tr>
+          <td>
+            $name.Name
+          </td>
+          <td>
+            $name.Id
+          </td>
+          <td>
+            $name.NameKey
+          </td>
+        </tr>
+    #end
+    </table>
+	
 </body>
 </html>
