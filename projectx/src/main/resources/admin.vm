@@ -6,24 +6,23 @@ $webResourceManager.requireResource("com.demich.projectx:resources")
 </head>
 <body>
 	<h2>Yo $username</h2>
-	<p>List of custom fields currently residing on the server:</p>
+	<p>List of custom fields visibility for given project</p>
 
-	
 	<table>
-    #foreach( $name in $fieldnames )
-        <tr>
-          <td>
-            $name.Name
-          </td>
-          <td>
-            $name.Id
-          </td>
-          <td>
-            $name.NameKey
-          </td>
-        </tr>
-    #end
-    </table>
-	
+		<tr>
+			<td></td> #foreach( $name in $fieldnames )
+			<td id="vert">$name.name</td> #end
+		</tr>
+		#foreach( $project in $projects )
+		<tr>
+			<td>$project.name</td> #foreach( $name in
+			$hfmapping.get("$project.name"))
+			<td><input id="checkBox" type="checkbox" #if(!$name.Second)
+				checked #end></td> #end
+		</tr>
+		#end
+	</table>
+
+
 </body>
 </html>
