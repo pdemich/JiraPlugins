@@ -2,8 +2,8 @@
 // This pattern is known as an "iife" - immediately invoked function expression
  
     // form the URL
+	
     var url = AJS.contextPath() + "/rest/projectx/1.0/";
- 
     // wait for the DOM (i.e., document "skeleton") to load. This likely isn't necessary for the current case,
     // but may be helpful for AJAX that provides secondary content.
     $(document).ready(function() {
@@ -26,8 +26,11 @@
 })(AJS.$ || jQuery);
 
 function updateConfig() {
+// form the URL
+	
+	var url = AJS.contextPath() + "/rest/projectx/1.0/";
 	  AJS.$.ajax({
-	    url: baseUrl + "/rest/projectx/1.0/",
+	    url: url,
 	    type: "PUT",
 	    contentType: "application/json",
 	    data: '{ "name": "' + AJS.$("#name").attr("value") + '", "time": ' +  AJS.$("#time").attr("value") + ' }',
