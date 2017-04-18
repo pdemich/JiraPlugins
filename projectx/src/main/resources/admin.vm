@@ -10,8 +10,8 @@ $webResourceManager.requireResource("com.demich.projectx:projectx-resources")
 
 	<table>
 		<tr>
-			<td></td> #foreach( $name in $fieldnames )
-			<td id="vert">$name.name</td> #end
+			<th></th> #foreach( $name in $fieldnames )
+			<th class="rotate"><div><span>$name.name</span></div></th> #end
 		</tr>
 		#foreach( $project in $projects )
 		<tr>
