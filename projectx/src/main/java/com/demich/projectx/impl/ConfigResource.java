@@ -15,8 +15,17 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.atlassian.jira.component.ComponentAccessor;
+import com.atlassian.jira.issue.fields.layout.field.EditableFieldLayout;
+import com.atlassian.jira.issue.fields.layout.field.FieldLayout;
+import com.atlassian.jira.issue.fields.layout.field.FieldLayoutManager;
+import com.atlassian.jira.project.Project;
+import com.atlassian.jira.project.ProjectManager;
 import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
+
+import java.util.Set;
+
 import javax.inject.Inject;
 
 import com.atlassian.sal.api.pluginsettings.PluginSettings;
@@ -35,6 +44,10 @@ public class ConfigResource
     private final PluginSettingsFactory pluginSettingsFactory;
     @ComponentImport
     private final TransactionTemplate transactionTemplate;
+    
+    private ProjectManager projectManager;
+	private FieldLayoutManager fieldLayoutManager;
+
 
     @Inject
     public ConfigResource(UserManager userManager, PluginSettingsFactory pluginSettingsFactory,
@@ -43,6 +56,8 @@ public class ConfigResource
         this.userManager = userManager;
         this.pluginSettingsFactory = pluginSettingsFactory;
         this.transactionTemplate = transactionTemplate;
+        this.projectManager = ComponentAccessor.getProjectManager();
+    	this.fieldLayoutManager = ComponentAccessor.getFieldLayoutManager();
     }
     
     @XmlRootElement
@@ -124,6 +139,29 @@ public class ConfigResource
         }
       });
       return Response.noContent().build();
+    }
+    private void hideFieldForProject(String projectKey, String fieldId) {
+    	
+       	Project project = projectManager.getProjectObjByKeyIgnoreCase(projectKey);
+    	Set<FieldLayout> associatedLayouts = fieldLayoutManager.getUniqueFieldLayouts(project);
+    	
+    	for(FieldLayout layout : associatedLayouts){	
+    		EditableFieldLayout tempEFL =	fieldLayoutManager.getEditableFieldLayout(layout.getId());
+    		tempEFL.hide(layout.getFieldLayoutItem(fieldId));
+    		fieldLayoutManager.storeEditableFieldLayout(tempEFL);
+    	}
+    }
+    
+    private void showFieldForProject(String projectKey, String fieldId) {
+    	
+    	Project project = projectManager.getProjectObjByKeyIgnoreCase(projectKey);
+    	Set<FieldLayout> associatedLayouts = fieldLayoutManager.getUniqueFieldLayouts(project);
+    	
+    	for(FieldLayout layout : associatedLayouts){	
+    		EditableFieldLayout tempEFL =	fieldLayoutManager.getEditableFieldLayout(layout.getId());
+    		tempEFL.show(layout.getFieldLayoutItem(fieldId));
+    		fieldLayoutManager.storeEditableFieldLayout(tempEFL);
+    	}
     }
     
 }
