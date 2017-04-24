@@ -17,25 +17,14 @@ $webResourceManager.requireResource("com.demich.projectx:projectx-resources")
 		<tr>
 			<td>$project.name</td> #foreach( $name in
 			$hfmapping.get("$project.name"))
-			<td><input id="checkBox" type="checkbox" #if(!$name.Second)
+			<td><input id="${project.key}-${name.first}" type="checkbox" class="hider" #if(!$name.Second)
 				checked #end></td> #end
 		</tr>
 		#end
 	</table>
 
-	<form id="admin" class="aui" action="">
-		<div class="field-group">
-			<label for="name">$i18n.getText("projectx.custom-field-manager.name.label"):</label> <input type="text" id="name"
-				name="name" class="text">
-		</div>
-		<div class="field-group">
-			<label for="time">$i18n.getText("projectx.custom-field-manager.time.label"):</label> <input type="text" id="time"
-				name="time" class="text">
-		</div>
-		<div class="field-group">
-			<input type="submit" value="$i18n.getText("projectx.custom-field-manager.save.label")" class="button">
-		</div>
-	</form>
+	<button id="updatebutton" class="aui-button">Update</button>
+
 
 </body>
 </html>

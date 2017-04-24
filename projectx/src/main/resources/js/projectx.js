@@ -4,23 +4,19 @@
     // form the URL
 	
     var url = AJS.contextPath() + "/rest/projectx/1.0/";
+    var fieldsToUpdate = new Object();
     // wait for the DOM (i.e., document "skeleton") to load. This likely isn't necessary for the current case,
     // but may be helpful for AJAX that provides secondary content.
     $(document).ready(function() {
-        // request the config information from the server
-        $.ajax({
-            url: url,
-            dataType: "json"
-        }).done(function(config) { // when the configuration is returned...
-            // ...populate the form.
-        	
-            $("#name").val(config.name);
-            $("#time").val(config.time);
-            AJS.$("#admin").submit(function(e) {
-                e.preventDefault();
-                updateConfig();
-            });
-        });
+    	
+    	$("button").click( function( ) {
+    		//TODO: Sending cumulative checkbox update to server
+        } );
+    	$(".hider").click( function( ) {
+    		fieldsToUpdate[this.id] = this.checked;
+    		alert(JSON.stringify(fieldsToUpdate));
+    		
+        } );
     });
 
 })(AJS.$ || jQuery);
@@ -37,3 +33,8 @@ function updateConfig() {
 	    processData: false
 	  });
 	}
+
+function storeFieldValueChange() {
+// stores values of fields to be updated	
+	
+}

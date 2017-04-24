@@ -33,6 +33,7 @@ import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.issue.fields.CustomField;
 import com.atlassian.jira.issue.CustomFieldManager;
 import com.atlassian.jira.issue.fields.NavigableField;
+import com.atlassian.jira.issue.fields.layout.field.FieldLayoutManager;
 import com.atlassian.jira.project.Project;
 import com.atlassian.jira.project.ProjectManager;
 import com.atlassian.jira.component.ComponentAccessor;
@@ -52,6 +53,7 @@ public class CustFieldManager extends HttpServlet{
 	private CustomFieldManager cfieldmanager;
 	
 	private ProjectManager projectManager;
+	private FieldLayoutManager fieldLayoutManager;
 	
 	
 	
@@ -66,6 +68,8 @@ public class CustFieldManager extends HttpServlet{
     	this.fieldVisibilityManager = fieldVisibilityManager;
     	this.cfieldmanager = ComponentAccessor.getCustomFieldManager();
     	this.projectManager = ComponentAccessor.getProjectManager();
+    	this.fieldLayoutManager = ComponentAccessor.getFieldLayoutManager();
+    	
     	
 	}
     
@@ -85,7 +89,6 @@ public class CustFieldManager extends HttpServlet{
         List<CustomField> fields = cfieldmanager.getCustomFieldObjects();
         Map<String,Object> hiddenFieldMapping = new HashMap<String,Object>();
         ArrayList<NavigableField> names = new ArrayList<NavigableField>(); 
-        
         for(Project project : projects ) {
         	ArrayList<Pair<Long,Boolean>> temp = new ArrayList<Pair<Long,Boolean>>();
         	for(CustomField field : fields) {
@@ -99,7 +102,6 @@ public class CustFieldManager extends HttpServlet{
 			
 			names.add(field);
 		}
-		Boolean wynik = fieldVisibilityManager.isFieldHiddenInAllSchemes(10100L, "customfield_10100");	
 		
      // Create the Velocity Context
         Map<String,Object> context = new HashMap<String,Object>();
